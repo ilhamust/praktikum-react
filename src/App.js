@@ -1,16 +1,32 @@
-import "./App.css";
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function About() {
+  return <h2>About</h2>;
+}
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const increment = () => {
-    setCounter(counter + 1);
-  };
   return (
-    <div className="App">
-      <h1>Counter: {counter}</h1>
-      <button onClick={increment}>Tambah</button>
-    </div>
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route exact path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Routes>
+    </Router>
   );
 }
 
