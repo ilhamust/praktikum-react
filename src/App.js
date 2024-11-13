@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { useState } from "react";
 
 function Home() {
@@ -13,21 +19,29 @@ function About() {
 function Contact() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   // Fungsi untuk menangani submit form
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Melakukan sesuatu dengan data yang dimasukkan, misalnya mengirim ke server atau menampilkan di console
-    console.log("Nama:", name);
-    console.log("Pesan:", message);
     // Reset form setelah submit
     setName("");
     setMessage("");
+
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      navigate("/contact"); // Navigasi kembali ke halaman Contact
+    }, 3000);
   };
 
   return (
     <div>
       <h2>Contact Us</h2>
+      {isSubmitted && (
+        <p style={{ color: "green" }}>Terima kasih, sudah mengirim pesan!</p>
+      )}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nama:</label>
